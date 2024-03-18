@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FileUpload
+from .models import FileUpload, Column
 
 class FilesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,3 +14,8 @@ class FilesSerializer(serializers.ModelSerializer):
         if file_extension not in ['csv', 'xlsx', 'xls']:
             raise serializers.ValidationError("Invalid file type. Only 'csv' and 'xlsx/xls' are allowed.")
         return value
+
+class ColumnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Column
+        fields = '__all__'

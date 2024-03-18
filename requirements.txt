@@ -1,3 +1,5 @@
 django==5.0.3
 djangorestframework==3.15.0
 django-cors-headers==4.3.1
+pandas
+redis
