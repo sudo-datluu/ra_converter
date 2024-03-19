@@ -25,9 +25,9 @@ class ColumnViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Column.objects.all()
     
-    @action(detail=True, methods=['get'])
-    def columns(self, request, pk=None):
-        file_id = self.kwargs['pk']
-        columns = Column.objects.filter(file__id=file_id)
+    # @action(detail=True, methods=['get'])
+    def list(self, request, *args, **kwargs):
+        file_id = self.kwargs['file_id']
+        columns = Column.objects.filter(file__fileID=file_id)
         serializer = self.get_serializer(columns, many=True)
         return Response(serializer.data)

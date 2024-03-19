@@ -139,3 +139,6 @@ GitHub.sublime-settings
 
 # notebook files
 *.ipynb
+
+# macbook file
+.DS_Store
