@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import FileDetailsModal from './FileDetailModal'
-
+import UploadAlert from './UploadAlert'
 
 function UploadFile() {
     const [filename, setFilename] = useState('')
@@ -11,13 +11,15 @@ function UploadFile() {
     const [showModal, setShowModal] = useState(false);
     const [columns, setColumns] = useState([]);
     const [selectedFileId, setSelectedFileId] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertVariant, setAlertVariant] = useState('success');
     let api = 'http://127.0.0.1:8000/api'
 
 
     const saveFile = () => {
-        setUploadStatus(true);
-
         let formData = new FormData();
+        setUploadStatus(true)
         formData.append("content", filename)
 
         let axiosConfig = {
@@ -26,16 +28,18 @@ function UploadFile() {
             }
         }
 
-        console.log(formData)
         axios.post(api + '/files/', formData, axiosConfig).then(
             response => {
-                console.log(response)
-                setstatus('File Uploaded Successfully')
-                setUploadStatus(false); 
+                setAlertMessage('File Uploaded Successfully');
+                setAlertVariant('success');
+                setShowAlert(true);
+                setUploadStatus(false)
             }
-        ).catch(error => {
-            console.log(error)
-            setUploadStatus(false); 
+        ).then(getFiles()).catch(error => {
+            setShowAlert(true);
+            setAlertVariant('danger');
+            setAlertMessage(error.response.data['content'].join(', '));
+            setUploadStatus(false)
         })
     }
 
@@ -82,7 +86,7 @@ function UploadFile() {
         console.log(files)
     }, [uploadStatus])
 
-    const fetchColumns = (fileId) => {
+    const fetchFileColumns = (fileId) => {
         axios.get(`${api}/files/${fileId}/columns/`)
             .then(response => {
                 setColumns(response.data);
@@ -111,10 +115,6 @@ function UploadFile() {
                         <br />
                         <br />
                         <br />
-
-                        {status ? <h2>{status}</h2> : null}
-
-
                     </form>
 
 
@@ -140,7 +140,7 @@ function UploadFile() {
                                     <tr>
                                         <td class="align-middle">{file.content}</td>
                                         <td><a href="" target="_blank"></a>
-                                            <button className='btn btn-success me-4' onClick={() => fetchColumns(file.fileID)}>
+                                            <button className='btn btn-success me-4' onClick={() => fetchFileColumns(file.fileID)}>
                                                 View Details
                                             </button>
 
@@ -158,7 +158,8 @@ function UploadFile() {
 
                 </div>
             </div>
-            <FileDetailsModal show={showModal} columns={columns} onClose={() => setShowModal(false)} />
+            <UploadAlert show={showAlert} message={alertMessage} variant={alertVariant} onClose={() => setShowAlert(false)} />
+            <FileDetailsModal show={showModal} columns={columns} onHide={() => setShowModal(false)} />
         </div>
     )
     
