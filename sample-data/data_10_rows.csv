@@ -1,0 +1,11 @@
+Integer Column,Float Column,String Column,Bool Column,Datetime Column,Timedelta Column,Option Column,Complex Column
+1,1.1,a,True,2024-03-18 05:25:10.154895,1d 0h 0m 0s,option1,123.0+3.0i
+2,2.2,b,False,2024-03-17 05:25:10.154903,0d 2h 30m 0s,option2,124.0+4.0i
+3,3.3,c,True,2024-03-16 05:25:10.154904,0d 0h 5m 0s,option3,125.0+5.0i
+4,4.4,d,False,2024-03-15 05:25:10.154906,0d 5h 0m 0s,option1,126.0+6.0i
+5,5.5,e,True,2024-03-14 05:25:10.154907,2d 1h 0m 0s,option2,127.0+7.0i
+6,6.6,f,False,2024-03-13 05:25:10.154908,1d 0h 0m 0s,option3,128.0+8.0i
+7,7.7,g,True,2024-03-12 05:25:10.154909,0d 0h 45m 30s,option1,129.0+9.0i
+8,8.8,h,False,2024-03-11 05:25:10.154911,3d 0h 15m 0s,option2,130.0+10.0i
+9,9.9,i,True,2024-03-10 05:25:10.154913,0d 12h 30m 0s,option3,131.0+11.0i
+10,10.1,j,False,2024-03-09 05:25:10.154914,0d 5h 0m 0s,option1,132.0+12.0i
